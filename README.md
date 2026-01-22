@@ -5,9 +5,11 @@ Repository for college because my professor is forcing me to make this.
 
 #### Email: texdirt2025@gmail.com
 
-#### Website: don't got one
+#### Website: I don't have one
 
-#### Image: i have import one still
+#### Image:
+
+<img src="Photos/IMG_20260122_140954.jpg">
 
 #### Avatar:
 
