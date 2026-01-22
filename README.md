@@ -11,4 +11,4 @@ Repository for college because my professor is forcing me to make this.
 
 #### Avatar:
 
-<img src="imagesIMG_20260122_141004.jpg">
+<img src="Photos/IMG_20260122_141004.jpg">
