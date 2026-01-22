@@ -9,7 +9,7 @@ Repository for college because my professor is forcing me to make this.
 
 #### Image:
 
-<img src="Photos/IMG_20260122_140954.jpg" width="200" height="150">
+<img src="Photos/IMG_20260122_140954.jpg" width="500" height="400">
 
 #### Avatar:
 
