@@ -9,4 +9,6 @@ Repository for college because my professor is forcing me to make this.
 
 #### Image: i have import one still
 
-#### Avatar: Photos/IMG_20260122_141004.jpg
+#### Avatar:
+
+<img src="imagesIMG_20260122_141004.jpg">
