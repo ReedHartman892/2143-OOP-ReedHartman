@@ -9,8 +9,8 @@ Repository for college because my professor is forcing me to make this.
 
 #### Image:
 
-<img src="Photos/IMG_20260122_140954.jpg">
+<img src="Photos/IMG_20260122_140954.jpg" width="200" height="150">
 
 #### Avatar:
 
-<img src="Photos/IMG_20260122_141004.jpg">
+<img src="Photos/IMG_20260122_141004.jpg" width="100" height="75">
