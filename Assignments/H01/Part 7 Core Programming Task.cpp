@@ -54,8 +54,8 @@ public:
 
 int main()
 {
-    Point2D a(2, 3);
-    Point2D b(6, 7);
+    Point2D a(3, 4);
+    Point2D b(1, 2);
 
     Point2D c = a + b;
     Point2D d = a - b;
