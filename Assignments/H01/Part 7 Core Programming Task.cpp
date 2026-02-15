@@ -1,3 +1,8 @@
+// Reed Hartman
+// Terry Griffin
+// Object-Oriented Programming
+// Feburary 15th, 2026
+/*****************************/
 #include <iostream>
 #include <stdexcept>
 
