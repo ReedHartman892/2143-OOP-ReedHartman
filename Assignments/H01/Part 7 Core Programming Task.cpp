@@ -1,3 +1,6 @@
+// Part 7 Core Programming Task
+
+/*****************************/
 // Reed Hartman
 // Terry Griffin
 // Object-Oriented Programming
