@@ -2,7 +2,7 @@
 // Reed Hartman
 // Terry Griffin
 // Object-Oriented Programming
-// March 15th, 2026
+// Feburary 15th, 2026
 /*****************************/
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -19,9 +19,10 @@
 using namespace termcolor;
 
 // ------------------------------------------------------------
-// Program 1 (Starter):
+// Program 2 (Edited from Program 1):
 // - Uses argv[1] argv[2] for input/output
 // - Loads an image, converts it to grayscale, saves as PNG
+// - 
 // ------------------------------------------------------------
 
 // This section here is used for opening the file.
@@ -107,7 +108,7 @@ int main(int argc, char* argv[]) {
     stbi_image_free(data);
 
     std::cout << green << "Saved output to: " << reset << outputPath << "\n";
-
+    
     std::cout << green << "Opening output in default viewer...\n" << reset;
     if (!open_file_default_app(outputPath)) {
         std::cout << "Warning: could not launch viewer automatically. \n";
