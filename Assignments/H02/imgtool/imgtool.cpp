@@ -15,12 +15,9 @@ using namespace termcolor;
 // Program 1 (Starter):
 // - Uses argv[1] argv[2] for input/output
 // - Loads an image, converts it to grayscale, saves as PNG
-//
-// YOU will add:
-//   (A) termcolor for colored messages
-//   (B) a function to open the output image automatically
 // ------------------------------------------------------------
 
+// This section here is used for opening the file.
 bool open_file_default_app(const std::string& path) {
 #if defined(_WIN32)
     std::string cmd = "start \"\" '\"" + path + "\"";
@@ -103,7 +100,7 @@ int main(int argc, char* argv[]) {
     stbi_image_free(data);
 
     std::cout << green << "Saved output to: " << reset << outputPath << "\n";
-
+    
     std::cout << green << "Opening output in default viewer...\n" << reset;
     if (!open_file_default_app(outputPath)) {
         std::cout << "Warning: could not launch viewer automatically. \n";
