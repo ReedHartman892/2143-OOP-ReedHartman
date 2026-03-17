@@ -22,7 +22,13 @@ using namespace termcolor;
 // Program 2 (Edited from Program 1):
 // - Uses argv[1] argv[2] for input/output
 // - Loads an image, converts it to grayscale, saves as PNG
-// - 
+// (to be) supported flags:
+// - --grayscale (-g)
+// - --blur (-l)
+// - --flipH (-h)
+// - --flipV (-v)
+// - --brighten N (-b [-255-255])
+// - --rotate N (-r {0, 90, 180, 270})
 // ------------------------------------------------------------
 
 // This section here is used for opening the file.
@@ -37,6 +43,7 @@ bool open_file_default_app(const std::string& path) {
     return std::system(cmd.c_str()) == 0;
 }
 
+//
 
 int main(int argc, char* argv[]) {
 
