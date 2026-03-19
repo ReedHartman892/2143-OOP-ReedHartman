@@ -2,6 +2,7 @@
 
 ```cpp
 #include <string>
+#include <ofstream>
 using namespace std;
 
 class Player {
