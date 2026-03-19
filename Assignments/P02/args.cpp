@@ -9,7 +9,7 @@ class Args {
 
     public:
     
-    // this section just optimizes argv into a new list to make handling inputs easier.
+    // optimizes argv into a new list to make handling the inputs and creating the flags simplier.
     static vector<string> optimize(int argc, char** argv){
         vector<string> opt_args;
         for (int i = 3; i < argc; i++) {
