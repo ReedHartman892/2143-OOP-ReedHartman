@@ -8,6 +8,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <filesystem>
@@ -43,22 +44,32 @@ bool open_file_default_app(const std::string& path) {
     return std::system(cmd.c_str()) == 0;
 }
 
-//
+// section for finding the number of arguments
+class Args {
+    private:
+    public:
+};
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
 
+    // modified check to ensure the directory is correct.
     std::cout << "Current working directory: "
               << std::filesystem::current_path() << "\n";
     
+    // argument check
+    for (int i = 0; i < argc; i++) {
+        std::cout << i << ": " << argv[i] << std::endl;
+    }
+
     if (argc < 3) {
         std::cout << red << "Usage: " << blue
-                  << "./imgtool <input_image> <output_image>\n"
+                  << "./imgtool <input_image> <output_image> [options]\n"
                   << reset;
         return 1;
     }
 
-    std::string inputPath  = argv[1];
-    std::string outputPath = argv[2];
+    std::string inputPath  = argv[1]; // 1st argument is the image the user wants to edit
+    std::string outputPath = argv[2]; // 2nd argument is the name the edited image will have
 
     int width = 0, height = 0, channels_in_file = 0;
 
