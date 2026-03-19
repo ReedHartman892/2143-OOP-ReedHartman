@@ -11,6 +11,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 #include <filesystem>
 
 #include "termcolor.hpp"
@@ -44,10 +45,56 @@ bool open_file_default_app(const std::string& path) {
     return std::system(cmd.c_str()) == 0;
 }
 
-// section for finding the number of arguments
+// class for tracking the arguments passed into main
 class Args {
     private:
+        std::string inputPath; // input file
+        std::string outputPath; // output file
+        bool grayscale, blur, flipH, flipV;
+        bool use_brighten; int brighten;
+        bool use_rotate; int rotate;
+
     public:
+        // Getters
+        std::string getInputPath(){}
+        std::string getOutputPath(){}
+
+        bool getGrayscale(){}
+        bool getBlur(){}
+        bool getFlipH(){}
+        bool getFlipV(){}
+        bool getUseBright(){}
+        bool getUseRotate(){}
+
+        int getBrightAmt(){}
+        int getRotateAmt(){}
+
+        // Setters
+        std::string setInputPath(){}
+        std::string setOutputPath(){}
+
+        bool setGrayscale(){}
+        bool setBlur(){}
+        bool setFlipH(){}
+        bool setFlipV(){}
+        bool setUseBright(){}
+        bool setUseRotate(){}
+
+        int setBrightAmt(){}
+        int setRotateAmt(){}
+
+        // Constructor
+        Args() // default constructor
+        {
+
+        }
+
+        Args(int argc, char* argv[]) // paramertized constructor 
+        {
+           for (int i = 0; i < argc; i++) {
+                std::cout << i << ": " << argv[i] << std::endl;
+            } 
+        }
 };
 
 int main(int argc, char** argv) {
@@ -57,9 +104,7 @@ int main(int argc, char** argv) {
               << std::filesystem::current_path() << "\n";
     
     // argument check
-    for (int i = 0; i < argc; i++) {
-        std::cout << i << ": " << argv[i] << std::endl;
-    }
+    Args(argc);
 
     if (argc < 3) {
         std::cout << red << "Usage: " << blue
