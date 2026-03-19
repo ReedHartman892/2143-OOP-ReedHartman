@@ -1,4 +1,4 @@
-## Problem 3
+## Problem 3 Solution
 
 ```cpp
 #include <string>
