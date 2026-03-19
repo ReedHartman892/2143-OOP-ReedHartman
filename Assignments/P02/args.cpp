@@ -8,6 +8,50 @@ using namespace std;
 class Args {
 
     public:
+    
+    // this section just optimizes argv into a new list to make handling inputs easier.
+    static vector<string> optimize(int argc, char** argv){
+        vector<string> opt_args;
+        for (int i = 3; i < argc; i++) {
+            string arg = argv[i];
+            if (arg.find('=') != string::npos) {
+                // Case C, parameterized w/ '='
+                size_t eq = arg.find('=');
+                opt_args.push_back(arg.substr(0, eq));
+                opt_args.push_back(arg.substr(eq + 1));
+            }
+            else if (Args::hasParams(arg)) {
+                // Case B, parameterized w/o parameter (assume next argc)
+                if (i + 1 >= argc) {
+                    cout << "Error: missing parameter for " << arg << endl;
+                    exit(1);
+                }
+
+                // this exists to keep stuff like "-r --blur" from passing
+                string next = argv[i + 1];
+                if (next[0] == '-') {
+                    cout << "Error: expected parameter after " << arg << endl;
+                    exit(1);
+                }
+
+                opt_args.push_back(arg);
+                opt_args.push_back(argv[i + 1]);
+                ++i;
+            }
+            else {
+                // Case A, non-parameterized
+                opt_args.push_back(arg);
+            }
+
+            cout << "Current args: ";
+            for (const string& s : opt_args) {
+                cout << "[" << s << "] ";
+            }
+            cout << endl;
+        }
+        return opt_args;
+    }
+
     // used to check for parameterized flags
     static bool hasParams(const string& flag) {
         return flag == "--brighten" || flag == "--b" ||
@@ -25,9 +69,9 @@ class Args {
 };
 
 class Flag {
-    string  flag;   // in-line name of the command
-    bool    params; // set to true if flag has a parameter
-    int     amt;    // parameterized amt
+    string  flag;    // in-line name of the command
+    bool    params;  // set to true if flag has a parameter
+    int     amt = 0; // parameterized amt
         // certain flags accept different amts.
     
     public:
@@ -58,7 +102,7 @@ int main (int argc, char** argv) {
     // check for input and output file paths
     if (argc < 3) {
         cout << "Error: need a filename!" << endl;
-        cout << "Usage: ./args <input> <output>" << endl;
+        cout << "Usage: ./args <input> <output> [options]" << endl;
         exit (1);
     }
     else
@@ -67,44 +111,9 @@ int main (int argc, char** argv) {
         string outputPath = argv[2];
     }
 
-    // this section just optimizes argv into a new list to make handling inputs easier.
-    vector<string> modded_args;
-    for (int i = 3; i < argc; i++) {
-        string arg = argv[i];
-        if (arg.find('=') != string::npos) {
-            // Case C, parameterized w/ '='
-            size_t eq = arg.find('=');
-            modded_args.push_back(arg.substr(0, eq));
-            modded_args.push_back(arg.substr(eq + 1));
-        }
-        else if (Args::hasParams(arg)) {
-            // Case B, parameterized w/o parameter (assume next argc)
-            if (i + 1 >= argc) {
-                cout << "Error: missing parameter for " << arg << endl;
-                exit(1);
-            }
-            
-            // this exists to keep stuff like "-r --blur" from passing
-            string next = argv[i + 1];
-            if (next[0] == '-') {
-                cout << "Error: expected parameter after " << arg << endl;
-                exit(1);
-            }
+    vector<string> new_args = Args::optimize(argc, argv);
+    vector<Flag> flagv = Args::parse(argc, new_args);
 
-            modded_args.push_back(arg);
-            modded_args.push_back(argv[i + 1]);
-            ++i;
-        }
-        else {
-            // Case A, non-parameterized
-            modded_args.push_back(arg);
-        }
-
-        for (const string& s : modded_args) {
-            cout << s << " ";
-        } 
-        cout << endl;
-    }
     /*
     ifstream fin;
     fin.open ("input");
