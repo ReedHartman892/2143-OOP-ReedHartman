@@ -27,7 +27,7 @@ class Args {
                     cout << "Error: missing parameter for " << arg << endl;
                     exit(1);
                 }
-
+                
                 // this exists to keep stuff like "-r --blur" from passing
                 string next = argv[i + 1];
                 if (next[0] == '-') {
@@ -53,12 +53,14 @@ class Args {
         return opt_args;
     }
 
-    static vector<Flag> parse(int argc, vector<string> unparsed_args[]){
+    static vector<Flag> parse(int argc, const vector<string>& unparsed_args){
         vector<Flag> parsed_flags;
+        cout << unparsed_args[1];
+        /*
         for (int i = 0; i < argc; i++) {
-
+            
             // STEP 1: Check if unparsed flag's command is valid, if not, don't parse it and return an error message.
-            if (/* check the unparsed arg's name for validity */) {
+            if () {
                 
             }
 
@@ -66,7 +68,7 @@ class Args {
             
             
             // STEP 3: check if the flag needs a parameter, and add that parameter to the flag if true
-            if (/* check the flag's internal name for validity */) {
+            if () {
 
                 // PROCESS: look at argv[i+1] for the flag's parameter, the list is optimized to ensure this can work.
 
@@ -78,7 +80,7 @@ class Args {
 
                 // that should handle everything for parsing the flags.
             }
-        }
+        }  */
     }
 
     // used to check for parameterized flags
