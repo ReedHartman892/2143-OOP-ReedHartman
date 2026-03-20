@@ -6,10 +6,11 @@
 using namespace std;
 
 class Args {
+    const vector<string> valid = {"--greyscale","--blur","--flipH","--flipV","--rotate","--brighten"};
 
     public:
     
-    // optimizes argv into a new list to make handling the inputs and creating the flags simplier.
+    // optimizes argv into a new list to make handling diverse inputs and creating flags from them simplier.
     static vector<string> optimize(int argc, char** argv){
         vector<string> opt_args;
         for (int i = 3; i < argc; i++) {
@@ -50,6 +51,34 @@ class Args {
             cout << endl;
         }
         return opt_args;
+    }
+
+    static vector<Flag> parse(int argc, vector<string> unparsed_args[]){
+        vector<Flag> parsed_flags;
+        for (int i = 0; i < argc; i++) {
+
+            // STEP 1: Check if unparsed flag's command is valid, if not, don't parse it and return an error message.
+            if (/* check the unparsed arg's name for validity */) {
+                
+            }
+
+            // STEP 2: Construct a new flag, there's no functionality planned for these flags in the assignment, so i'm not making any.
+            
+            
+            // STEP 3: check if the flag needs a parameter, and add that parameter to the flag if true
+            if (/* check the flag's internal name for validity */) {
+
+                // PROCESS: look at argv[i+1] for the flag's parameter, the list is optimized to ensure this can work.
+
+                // FAILSAFE 1: if argv[i+1] is checked and it isn't an integer value, simply forgo the parameterized flag from the final result, and report the error to the user.
+                
+                // FAILSAFE 2: check what parameterized flag it is to determine if that flag can be given that value of parameter
+                // EX: "--rotate" can only have a parameter values {0, 90, 180, 270}
+                // EX: "--brighten" can only have values between [-255, 255]
+
+                // that should handle everything for parsing the flags.
+            }
+        }
     }
 
     // used to check for parameterized flags
@@ -114,18 +143,4 @@ int main (int argc, char** argv) {
     vector<string> new_args = Args::optimize(argc, argv);
     vector<Flag> flagv = Args::parse(argc, new_args);
 
-    /*
-    ifstream fin;
-    fin.open ("input");
-
-    int x;
-    
-    while (!fin.eof ()) {
-        fin >> x;
-        cout << x << " ";
-    }
-    while (fin >> x) {
-        cout << x << " ";
-    }
-    */
 }
