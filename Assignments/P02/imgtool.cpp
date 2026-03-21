@@ -169,7 +169,7 @@ int main(int argc, char** argv) {
     }
 
     stbi_image_free(data);
-
+    
     std::cout << green << "Saved output to: " << reset << outputPath << "\n";
     
     std::cout << green << "Opening output in default viewer...\n" << reset;

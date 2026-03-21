@@ -1,185 +1,121 @@
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-class Flag {
-    string  flag;    // in-line name of the command
-    bool    params;  // set to true if flag has a parameter
-    int     value; // parameterized amt
-        // certain flags accept different amts.
-    
-    public:
-        // constructor
-        Flag(){} // default constructor
-        Flag(const string& f) : flag(f), params(false){} // non-parameter-flag constructor
-        Flag(const string& f, int v) : flag(f), params(true), value(v){} // parameterized-flag constructor
-        
-        // getters
-        string getFlag() {return flag;}
-        bool getParams() {return params;}
-        int getValue() {return value;}
-
-        // setters
-        void setFlag(string f) {flag = f;}
-        void setParams(bool p) {params = p;}
-        void setValue(int a) {value = a;}
-};
-
 class Args {
-    const vector<string> valid = {"--greyscale","--blur","--flipH","--flipV","--rotate","--brighten"};
+    // filenames
+    string inputPath;
+    string outputPath;
+    
+    // flags
+    bool grayscale, blur, flipH, flipV;
+    bool brighten; int brighten_value;
+    bool rotate; int rotate_value;
+    
+    // parameter restrictions
+    const int min_bright = -255;
+    const int max_bright = 255;
+    const int valid_rotations[4];
 
     public:
-    // optimizes argv into a new list to make handling diverse inputs and creating flags from them simplier.
-    static vector<string> optimize(int argc, char** argv){
-        vector<string> opt_args;
-        for (int i = 3; i < argc; i++) {
-            string arg = argv[i];
-            if (arg.find('=') != string::npos) {
-                // Case C, parameterized w/ '='
-                size_t eq = arg.find('=');
-                opt_args.push_back(arg.substr(0, eq));
-                opt_args.push_back(arg.substr(eq + 1));
-            }
-            else if (Args::hasParams(arg)) {
-                // Case B, parameterized w/o parameter (assume next argc)
-                if (i + 1 >= argc) {
-                    cout << "Error: missing parameter for " << arg << endl;
-                    exit(1);
-                }
-                
-                // this exists to keep stuff like "-r --blur" from passing
-                string next = argv[i + 1];
-                if (next[0] == '-') {
-                    cout << "Error: expected parameter after " << arg << endl;
-                    exit(1);
-                }
-
-                opt_args.push_back(arg);
-                opt_args.push_back(argv[i + 1]);
-                ++i;
-            }
-            else {
-                // Case A, non-parameterized
-                opt_args.push_back(arg);
-            }
-
-            cout << "Current args: ";
-            for (const string& s : opt_args) {
-                cout << "[" << s << "] ";
-            }
-            cout << endl;
+    // ---- constructor ----
+    // default constructor with default values
+    Args() : grayscale(false), blur(false), flipH(false), flipV(false),
+             brighten(false), brighten_value(0), rotate(false), rotate_value(0),
+             valid_rotations({0, 90, 180, 270})
+    { cout << "why are you calling this" << endl; }
+    
+    // parameterized constructor
+    Args(int argc, char* argv[]) : grayscale(false), blur(false), flipH(false), flipV(false),
+                                   brighten(false), brighten_value(0), rotate(false), rotate_value(0),
+                                   valid_rotations({0, 90, 180, 270})
+    {
+        // STEP 1: parse filenames
+        // assumes the 1st arg is the input and the 2nd arg is the output
+        
+        // checks if length of argv is long enough for there to be 2 filenames.
+        if (argc < 3) {
+            cout << "Error: missing filenames!" << endl;
+            cout << "Usage: ./args <input> <output> [options]" << endl;
+            exit (1);
         }
-        return opt_args;
-    }
+        // assign directory paths
+        inputPath = argv[1];
+        outputPath = argv[2];
+        /* 
+        NOTE: for true functionality, you'd need to search files to check
+        if the file paths exist. However, for this assignment, that wasn't required. 
+        Meaning the program assumes that inputPath and outputPath are real.
+        */
+        // checks if inputPath and outputPath are structured like commands.
+        /* code here */
 
-    /*static vector<Flag> parse(const vector<string>& unparsed_args){
-        int argc = unparsed_args.size();
-        vector<Flag> parsed_flags;
-        for(int i = 0; i < argc; i++) {
-            string flag_name = unparsed_args[i];
-            // STEP 1: Check if unparsed flag's command is valid
-            if (Args::isValid(flag_name)) {
-                // invalid flag case
-                cout << "Invalid Flag: " << unparsed_args[i];
-                exit(1);
-            }
-            
-            // STEP 2: Flag construction, 2 cases: parameterized and non-parameterized
-            Flag f;
-            if (Args::hasParams(flag_name)) {
-                // parameterized flag
-                f = Flag(flag_name, stoi(unparsed_args[i+1]));
-                i++; // skip parameter
-            }
-            else // non-parameterized flag
-            {
-                f = Flag(flag_name);
-            }
-            parsed_flags.push_back(f);
-            cout << i;
-        }
-        return parsed_flags;
-    }*/
-    static vector<Flag> parse(const vector<string>& unparsed_args){
-        cout << "Unparsed contents of flag to be parsed:" << endl;
-        for (int i = 0; i < unparsed_args.size(); i++){ // test loop
-            cout << unparsed_args[i] << endl;
+        // test ouputs
+        cout << "Input file: " << inputPath << endl;
+        cout << "Output file: " << outputPath << endl;
+        
+        if (argc == 3){
+            cout << "Error: no options chosen!" << endl;
+            cout << "(insert list of options here)" << endl;
+            exit(1);
         }
 
-        int argc = unparsed_args.size();
-        vector<Flag> parsed_flags;
-
-        for(int i = 0; i < argc; i++) {
-            string flag_name = unparsed_args[i];
-
-            // STEP 1: Validate
-
-            cout << "flag name being parsed: " << flag_name << endl; // test
-            
-            if (!Args::isValid(flag_name)) {
-                cout << "Invalid flag name: " << flag_name << endl;
-                exit(1);
-            }
-
-            Flag f;
-
-            // STEP 2: Construct
-            cout << "Processed index: " << i << endl;
-            if (!Args::hasParams(flag_name)) {
-                if (i + 1 >= argc) {
-                    // parameterized
-                    cout << "Missing parameter for " << flag_name << endl;
-                    exit(1);
-                }
-
-                f = Flag(flag_name, stoi(unparsed_args[i+1]));
-                i++; // skip parameter
-            }
-            else { // non parameterized construction
-                f = Flag(flag_name);
-            }
-
-            parsed_flags.push_back(f);
+        // flag checks
+        if (string (argv[3]) == "--grayscale") {
+            setGrayscale(true);
         }
-        return parsed_flags;
     }
 
-    // used to check for parameterized flags
-    static bool hasParams(const string& flag) {
-        return flag == "--brighten" || flag == "--b"
-            || flag == "--rotate"   || flag == "--r";
+    // ---- getters ----
+    string getInputPath(){return inputPath;}
+    string getOutputPath(){return outputPath;}
+    
+    bool getGrayscale(){return grayscale;}
+    bool getBlur(){return blur;}
+    bool getFlipH(){return flipH;}
+    bool getFlipV(){return flipV;}
+
+    bool getBrighten(){return brighten;}
+    int getBrightenValue(){return brighten_value;}
+
+    bool getRotate(){return rotate;}
+    int getRotateValue(){return rotate_value;}
+
+    // ---- setters ----
+    void setInputPath(string ip){inputPath = ip;}
+    void setOutputPath(string op){outputPath = op;}
+
+    void setGrayscale(bool g){grayscale = g;}
+    void setBlur(bool l){blur = l;}
+    void setFlipH(bool h){flipH = h;}
+    void setFlipV(bool v){flipV = v;}
+
+    void setBrighten(bool b){brighten = b;}
+    void setBrightenValue(int bv){
+        // TODO: add functionality to keep brighten_value between min and max
+        brighten_value = bv;
     }
-    // used to check if a flag is valid
-    static bool isValid(const string& flag) {
-        return flag == "--grayscale" || flag == "-g" ||
-               flag == "--blur"      || flag == "-l" ||
-               flag == "--flipH"     || flag == "-h" ||
-               flag == "--flipV"     || flag == "-v" ||
-               flag == "--brighten"  || flag == "-b" ||
-               flag == "--rotate"    || flag == "-r";
+
+    void setRotate(bool r){rotate = r;}
+    void setRotateValue(int rv){
+        // TODO add functionality to keep rotate_value between the 4 set values
+        rotate_value = rv;
     }
+
+    // ---- methods ----
+
 };
 
-int main (int argc, char** argv) {
-    cout << argc << endl;
-    cout << argv[0] << endl;
-
-    // check for input and output file paths
-    if (argc < 3) {
-        cout << "Error: need a filename!" << endl;
-        cout << "Usage: ./args <input> <output> [options]" << endl;
-        exit (1);
-    }
-    else
-    {
-        string inputPath = argv[1];
-        string outputPath = argv[2];
-    }
-
-    vector<string> new_args = Args::optimize(argc, argv);
-    vector<Flag> flagv = Args::parse(new_args);
-    cout << "if you are reading this then it runs correctly but is busted another way.";
+int main(int argc, char** argv){
+    Args test = Args(argc, argv);
+    cout << "grayscale: " << test.getGrayscale() << endl;
+    cout << "blur: " << test.getBlur() << endl;
+    cout << "flipH: " << test.getFlipH() << endl;
+    cout << "flipV: " << test.getFlipV() << endl;
+    cout << "brighten: " << test.getBrighten() << endl;
+    cout << "brighten_value: " << test.getBrightenValue() << endl;
+    cout << "rotate: " << test.getRotate() << endl;
+    cout << "rotate_value: " << test.getRotateValue() << endl;
 }
