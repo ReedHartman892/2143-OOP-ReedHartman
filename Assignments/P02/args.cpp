@@ -5,11 +5,33 @@
 
 using namespace std;
 
+class Flag {
+    string  flag;    // in-line name of the command
+    bool    params;  // set to true if flag has a parameter
+    int     value; // parameterized amt
+        // certain flags accept different amts.
+    
+    public:
+        // constructor
+        Flag(){} // default constructor
+        Flag(const string& f) : flag(f), params(false){} // non-parameter-flag constructor
+        Flag(const string& f, int v) : flag(f), params(true), value(v){} // parameterized-flag constructor
+        
+        // getters
+        string getFlag() {return flag;}
+        bool getParams() {return params;}
+        int getValue() {return value;}
+
+        // setters
+        void setFlag(string f) {flag = f;}
+        void setParams(bool p) {params = p;}
+        void setValue(int a) {value = a;}
+};
+
 class Args {
     const vector<string> valid = {"--greyscale","--blur","--flipH","--flipV","--rotate","--brighten"};
 
     public:
-    
     // optimizes argv into a new list to make handling diverse inputs and creating flags from them simplier.
     static vector<string> optimize(int argc, char** argv){
         vector<string> opt_args;
@@ -53,77 +75,92 @@ class Args {
         return opt_args;
     }
 
-    static vector<Flag> parse(int argc, const vector<string>& unparsed_args){
+    /*static vector<Flag> parse(const vector<string>& unparsed_args){
+        int argc = unparsed_args.size();
         vector<Flag> parsed_flags;
-        cout << unparsed_args[1];
-        /*
-        for (int i = 0; i < argc; i++) {
+        for(int i = 0; i < argc; i++) {
+            string flag_name = unparsed_args[i];
+            // STEP 1: Check if unparsed flag's command is valid
+            if (Args::isValid(flag_name)) {
+                // invalid flag case
+                cout << "Invalid Flag: " << unparsed_args[i];
+                exit(1);
+            }
             
-            // STEP 1: Check if unparsed flag's command is valid, if not, don't parse it and return an error message.
-            if () {
-                
+            // STEP 2: Flag construction, 2 cases: parameterized and non-parameterized
+            Flag f;
+            if (Args::hasParams(flag_name)) {
+                // parameterized flag
+                f = Flag(flag_name, stoi(unparsed_args[i+1]));
+                i++; // skip parameter
+            }
+            else // non-parameterized flag
+            {
+                f = Flag(flag_name);
+            }
+            parsed_flags.push_back(f);
+            cout << i;
+        }
+        return parsed_flags;
+    }*/
+    static vector<Flag> parse(const vector<string>& unparsed_args){
+        cout << "Unparsed contents of flag to be parsed:" << endl;
+        for (int i = 0; i < unparsed_args.size(); i++){ // test loop
+            cout << unparsed_args[i] << endl;
+        }
+
+        int argc = unparsed_args.size();
+        vector<Flag> parsed_flags;
+
+        for(int i = 0; i < argc; i++) {
+            string flag_name = unparsed_args[i];
+
+            // STEP 1: Validate
+
+            cout << "flag name being parsed: " << flag_name << endl; // test
+            
+            if (!Args::isValid(flag_name)) {
+                cout << "Invalid flag name: " << flag_name << endl;
+                exit(1);
             }
 
-            // STEP 2: Construct a new flag, there's no functionality planned for these flags in the assignment, so i'm not making any.
-            
-            
-            // STEP 3: check if the flag needs a parameter, and add that parameter to the flag if true
-            if () {
+            Flag f;
 
-                // PROCESS: look at argv[i+1] for the flag's parameter, the list is optimized to ensure this can work.
+            // STEP 2: Construct
+            cout << "Processed index: " << i << endl;
+            if (!Args::hasParams(flag_name)) {
+                if (i + 1 >= argc) {
+                    // parameterized
+                    cout << "Missing parameter for " << flag_name << endl;
+                    exit(1);
+                }
 
-                // FAILSAFE 1: if argv[i+1] is checked and it isn't an integer value, simply forgo the parameterized flag from the final result, and report the error to the user.
-                
-                // FAILSAFE 2: check what parameterized flag it is to determine if that flag can be given that value of parameter
-                // EX: "--rotate" can only have a parameter values {0, 90, 180, 270}
-                // EX: "--brighten" can only have values between [-255, 255]
-
-                // that should handle everything for parsing the flags.
+                f = Flag(flag_name, stoi(unparsed_args[i+1]));
+                i++; // skip parameter
             }
-        }  */
+            else { // non parameterized construction
+                f = Flag(flag_name);
+            }
+
+            parsed_flags.push_back(f);
+        }
+        return parsed_flags;
     }
 
     // used to check for parameterized flags
     static bool hasParams(const string& flag) {
-        return flag == "--brighten" || flag == "--b" ||
-               flag == "--rotate"   || flag == "--r";
+        return flag == "--brighten" || flag == "--b"
+            || flag == "--rotate"   || flag == "--r";
     }
     // used to check if a flag is valid
     static bool isValid(const string& flag) {
-        return hasParams(flag) || flag == "--grayscale" || flag == "-g"
-                               || flag == "--blur"      || flag == "-l"
-                               || flag == "--flipH"     || flag == "-h"
-                               || flag == "--flipV"     || flag == "-v"
-                               || flag == "--brighten"  || flag == "-b"
-                               || flag == "--rotate"    || flag == "-r";
+        return flag == "--grayscale" || flag == "-g" ||
+               flag == "--blur"      || flag == "-l" ||
+               flag == "--flipH"     || flag == "-h" ||
+               flag == "--flipV"     || flag == "-v" ||
+               flag == "--brighten"  || flag == "-b" ||
+               flag == "--rotate"    || flag == "-r";
     }
-};
-
-class Flag {
-    string  flag;    // in-line name of the command
-    bool    params;  // set to true if flag has a parameter
-    int     amt = 0; // parameterized amt
-        // certain flags accept different amts.
-    
-    public:
-        // constructor
-        Flag(){} // default constructor
-
-        Flag(string f) : flag(f)
-        {
-            // check if this flag has a parameter
-            setParams(Args::hasParams(getFlag()));
-        };
-        
-        // getters
-        string getFlag() {return flag;}
-        bool getParams() {return params;}
-        int getAmt() {return amt;}
-
-        // setters
-        void setFlag(string f) {flag = f;}
-        void setParams(bool p) {params = p;}
-        void setAmt(int a) {amt = a;}
 };
 
 int main (int argc, char** argv) {
@@ -143,6 +180,6 @@ int main (int argc, char** argv) {
     }
 
     vector<string> new_args = Args::optimize(argc, argv);
-    vector<Flag> flagv = Args::parse(argc, new_args);
-
+    vector<Flag> flagv = Args::parse(new_args);
+    cout << "if you are reading this then it runs correctly but is busted another way.";
 }
