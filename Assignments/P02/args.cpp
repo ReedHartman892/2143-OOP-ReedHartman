@@ -63,8 +63,25 @@ class Args {
         }
 
         // flag checks
-        if (string (argv[3]) == "--grayscale") {
-            setGrayscale(true);
+        for (int i = 3; i < argc; i++) {
+            string arg = string(argv[i]);
+
+            if (arg == "--grayscale" || arg == "-g") {setGrayscale(true);}
+            else if (arg == "--blur" || arg == "-l") {setBlur(true);}
+            else if (arg == "--flipH" || arg == "-h") {setFlipH(true);}
+            else if (arg == "--flipV" || arg == "-v") {setFlipV(true);}
+
+            else if (arg == "--brighten" || arg == "-b")
+            {
+                setBrighten(true);
+                // code needed to parse the argument's value
+            }
+
+            else if (arg == "--rotate" || arg == "-r")
+            {
+                setRotate(true);
+                // code needed to parse the argument's value
+            }
         }
     }
 
