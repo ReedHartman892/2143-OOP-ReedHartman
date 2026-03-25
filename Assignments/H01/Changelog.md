@@ -12,3 +12,8 @@
 ### 3/23/2026
  - resumed work
  - made my home page
+ - worked on the classes/objects page
+
+### 3/25/2026
+ - added code example to classes and objects page
+ - added more "common mistakes" for classes and objects page
