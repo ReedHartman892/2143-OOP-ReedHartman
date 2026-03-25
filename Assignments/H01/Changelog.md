@@ -17,3 +17,4 @@
 ### 3/25/2026
  - added code example to classes and objects page
  - added more "common mistakes" for classes and objects page
+ - Created 2nd page for all the different types of variables in OOP C++
