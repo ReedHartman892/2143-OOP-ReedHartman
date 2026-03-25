@@ -17,3 +17,4 @@
 ### 3/25/2026
  - added code example to classes and objects page
  - added more "common mistakes" for classes and objects page
+ - added more related concepts to classes and objects
