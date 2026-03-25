@@ -1,4 +1,4 @@
-## Changelog (v0.1.0)
+## Changelog (v0.1.1)
 
 ### Notes
  - to keep up with the assignment demands I aimed for 1 page a day until the end of the year.
