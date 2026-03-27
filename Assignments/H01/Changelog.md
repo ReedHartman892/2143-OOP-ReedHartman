@@ -17,9 +17,3 @@
 ### 3/25/2026
  - added code example to classes and objects page
  - added more "common mistakes" for classes and objects page
- - Created 2nd page for all the different types of variables in OOP C++
-
- ### 3/27/2026
- - Developed Variables page further
-   - Reformatted the page slightly, deleted term-similar sections (static variables and class variables simultaneously)
-   - Specified that the Instance and Class variables are types of Member variables, not separate concepts.
