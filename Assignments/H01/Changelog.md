@@ -1,4 +1,4 @@
-## Changelog (v0.0.1)
+## Changelog (v0.1.1)
 
 ### Notes
  - to keep up with the assignment demands I aimed for 1 page a day until the end of the year.
@@ -18,3 +18,6 @@
  - added code example to classes and objects page
  - added more "common mistakes" for classes and objects page
  - Created 2nd page for all the different types of variables in OOP C++
+
+ ### 3/27/2026
+ - worked on variables page
