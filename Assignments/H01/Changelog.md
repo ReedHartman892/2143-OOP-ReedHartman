@@ -18,7 +18,12 @@
  - added code example to classes and objects page
  - added more "common mistakes" for classes and objects page
 
- ### 3/27/2026
+### 3/27/2026
  - worked more on the variables page
-    - removed similar terms (for instance, I originally two sections for class variables)
+    - removed similar terms (for instance, I originally had two sections for class variables)
     - fixed member variables to clarify that instance and class variables are different types of member variables.
+
+### 3/30/2026
+ - more work done for variables page
+    - completed the characteristics section for class variables
+    - added details for common mistakes concerning usage of class variables
