@@ -27,3 +27,8 @@
  - more work done for variables page
     - completed the characteristics section for class variables
     - added details for common mistakes concerning usage of class variables
+
+### 3/31/2026
+ - Reformatted the variables page slightly
+   - Added clear dividers between the Members, Instance, and Class variables sections.
+   - Added collapsible sections for code examples above most of the page's main points. Most aren't filled at the moment, but they will all get filled eventually.
