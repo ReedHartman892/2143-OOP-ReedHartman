@@ -1,4 +1,4 @@
-## Changelog (v0.1.4)
+## Changelog (v0.2.0)
 
 ### Notes
  - to keep up with the assignment demands I aimed for 1 page a day until the end of the year.
@@ -33,3 +33,6 @@
    - Added clear dividers between the Members, Instance, and Class variables sections.
    - Added collapsible sections for code examples above most of the page's main points. Most aren't filled at the moment, but they will all get filled eventually.
  - Good progress today, about 2 hours.
+
+ ### 1/1/2026
+ - Added code examples to the variables page. 
