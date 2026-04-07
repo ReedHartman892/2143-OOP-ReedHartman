@@ -1,4 +1,4 @@
-## Changelog (v0.2.0)
+## Changelog (v0.2.1)
 
 ### Notes
  - to keep up with the assignment demands I aimed for 1 page a day until the end of the year.
@@ -34,5 +34,12 @@
    - Added collapsible sections for code examples above most of the page's main points. Most aren't filled at the moment, but they will all get filled eventually.
  - Good progress today, about 2 hours.
 
- ### 1/1/2026
+ ### 4/1/2026
  - Added code examples to the variables page. 
+
+### 4/7/2026
+ - Added pages to the core concepts section for the future: Methods, Static Methods and Variables, Constructors and Destructors, Encapsulation, Inheritance, Polymorphism, Overloading, Abstraction, Interfaces, Virtual Functions.
+ - Made a folder for Access Control and Scope
+ - Made a folder for Exception Handling and Memory Management
+ - Made a short section for "Miscellaneous Pointers" to add a section for the `this` keyword, and put it in the Exception Handling and Memory Management folder temporarily.
+ - Added `this` as the first glossary term.
