@@ -1,8 +1,7 @@
-## Changelog (v0.2.1)
+## Changelog
 
 ### Notes
  - to keep up with the assignment demands I aimed for 1 page a day until the end of the year.
- - the version number is tracked by: (wiki-completed, page-completed, page-edit)
 
 ### 3/20/2026
  - Began working on the wiki after finding out I should've started it since the beginning of the semester.
@@ -43,3 +42,7 @@
  - Made a folder for Exception Handling and Memory Management
  - Made a short section for "Miscellaneous Pointers" to add a section for the `this` keyword, and put it in the Exception Handling and Memory Management folder temporarily.
  - Added `this` as the first glossary term.
+
+### 4/10/2026
+ - Added short summaries to various core concept pages (Static Members, Constructors & Destructors), just to get them down.
+ - Got rid of the version number because it was too inconsistent, and GitHub already has a built-in system for that.
