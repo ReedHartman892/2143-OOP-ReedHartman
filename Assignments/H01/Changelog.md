@@ -46,3 +46,8 @@
 ### 4/10/2026
  - Added short summaries to various core concept pages (Static Members, Constructors & Destructors), just to get them down.
  - Got rid of the version number because it was too inconsistent, and GitHub already has a built-in system for that.
+
+### 4/13/2026
+ - Added details to _"6. Encapsulation"_.
+ - Added a __SINGULAR SPACE__ between the header and `this` section header in _"1. Miscellaneous Pointers"_. OCD.
+ - Added more details to _"4. Static methods"_ including common uses, common mistakes, and a static vs non-static method chart.
