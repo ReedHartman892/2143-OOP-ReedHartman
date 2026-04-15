@@ -51,3 +51,6 @@
  - Added details to _"6. Encapsulation"_.
  - Added a __SINGULAR SPACE__ between the header and `this` section header in _"1. Miscellaneous Pointers"_. OCD.
  - Added more details to _"4. Static methods"_ including common uses, common mistakes, and a static vs non-static method chart.
+
+### 4/15/2026
+ - Added the rest of the basic rundown shtuff (mainly just the definition) to the rest of the core concepts: *Inheritance*, *Polymorphism*, *Overloading*, *Abstract* *Classes*, *Interfaces*, and *Virtual Functions*. These pages and others aren't finished yet, but they at least have some content on them now.
