@@ -54,3 +54,6 @@
 
 ### 4/15/2026
  - Added the rest of the basic rundown shtuff (mainly just the definition) to the rest of the core concepts: *Inheritance*, *Polymorphism*, *Overloading*, *Abstract* *Classes*, *Interfaces*, and *Virtual Functions*. These pages and others aren't finished yet, but they at least have some content on them now.
+
+### 4/20/2026
+- Added details to _"7. Inheritance"_.
