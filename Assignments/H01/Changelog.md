@@ -57,3 +57,7 @@
 
 ### 4/20/2026
 - Added details to _"7. Inheritance"_.
+
+### 4/28/2026
+- Added details to _"8. Polymorphism"_
+- wow we're almost at the end of the year.
