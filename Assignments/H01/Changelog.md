@@ -61,3 +61,9 @@
 ### 4/28/2026
 - Added details to _"8. Polymorphism"_
 - wow we're almost at the end of the year.
+
+### 4/29/2026
+- Finished _"9. Overloading"_
+- Finished _"10. Abstract Classes"_
+- Finished _"11. Interfaces"_
+- Finished _"12. Virtual Functions"_
