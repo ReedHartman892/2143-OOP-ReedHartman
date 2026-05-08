@@ -67,3 +67,6 @@
 - Finished _"10. Abstract Classes"_
 - Finished _"11. Interfaces"_
 - Finished _"12. Virtual Functions"_
+
+### 5/8/2026
+- Finished _"3. Instance Methods"_
